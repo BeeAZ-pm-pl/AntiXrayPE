@@ -19,3 +19,7 @@ Apart from Notifying Staff Who Are Online, Not Notifying Anyone
 <br>
 
 Add Permission **antixraype.check** Let Staff Get Notifications About Xray Users
+
+<br>
+
+Edit ore you want to receive notifications in **config.yml** [true to turn on , false to turn off]
