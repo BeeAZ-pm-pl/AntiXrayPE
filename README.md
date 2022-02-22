@@ -6,7 +6,7 @@ Plugin Notify **OP** Or Staff Has Permission **antixraype.check** when someone b
 
 <br>
 
-If the message repeats many times, check if the player is using it."
+If the message repeats many times, check if the player is using it
 
 <br>
 
