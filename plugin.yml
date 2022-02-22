@@ -1,0 +1,9 @@
+name: AntiXrayPE
+api: 4.0.0
+version: 0.0.1
+main: BeeAZZ\AntiXrayPE\Main
+author: BeeAZZ
+
+permissions:
+ antixraype.check:
+  default: op
