@@ -8,6 +8,7 @@ use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\block\Block;
+use pocketmine\block\{CoalOre, IronOre, DiamondOre, LapisOre, EmeraldOre};
 
 class Main extends PluginBase implements Listener{
   
