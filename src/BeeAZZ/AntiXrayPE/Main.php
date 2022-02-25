@@ -16,10 +16,10 @@ class Main extends PluginBase implements Listener{
     $this->saveDefaultConfig();
   }
   public function onBreak(BlockBreakEvent $event){
-   $block = $event->getBlock()->getId();
+   $block = $event->getBlock();
    $player = $event->getPlayer();
   if($this->getConfig()->get("Coal") == true){
-  if($block == 16){
+  if($block instanceof CoalOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
@@ -27,26 +27,19 @@ class Main extends PluginBase implements Listener{
   }
 }
 }
-  if($this->getConfig()->get("Ingot") == true){
-  if($block == 15){
+  if($this->getConfig()->get("Iron") == true){
+  if($block instanceof IronOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
   }
 }
 }
-}
-  if($this->getConfig()->get("Gold") == true){
-  if($block == 14){
-    foreach($this->getServer()->getOnlinePlayers() as $staff){
-     if($staff->hasPermission("antixraype.check")){
-      $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
-     }
     }
   }
 }
   if($this->getConfig()->get("Diamond") == true){
-  if($block == 56){
+  if($block instanceof DiamondOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
@@ -55,7 +48,7 @@ class Main extends PluginBase implements Listener{
   }
   }
   if($this->getConfig()->get("Lapis") == true){
-  if($block == 21){
+  if($block instanceof LapisOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
       $staff->sendMessage("[AntiXrayPE] ➳ Player ".$player->getName(). " break ".$event->getBlock());
@@ -64,7 +57,7 @@ class Main extends PluginBase implements Listener{
   }
   }
   if($this->getConfig()->get("Emerald") == true){
-  if($block == 129){
+  if($block instanceof EmeraldOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
       $staff->sendMessage("[AntiXrayPE] ➳ Player ".$player->getName(). " break ".$event->getBlock());
@@ -72,5 +65,3 @@ class Main extends PluginBase implements Listener{
     }
   }
   }
-  }
-}
