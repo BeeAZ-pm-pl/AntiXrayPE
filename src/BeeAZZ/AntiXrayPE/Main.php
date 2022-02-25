@@ -8,7 +8,7 @@ use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\block\Block;
-use pocketmine\block\{CoalOre, IronOre, DiamondOre, LapisOre, EmeraldOre};
+use pocketmine\block\{CoalOre, RedstoneOre, DiamondOre, LapisOre, EmeraldOre};
 
 class Main extends PluginBase implements Listener{
   
@@ -28,8 +28,8 @@ class Main extends PluginBase implements Listener{
   }
 }
 }
-  if($this->getConfig()->get("Iron") == true){
-  if($block instanceof IronOre){
+  if($this->getConfig()->get("Redstone") == true){
+  if($block instanceof RedstoneOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
@@ -37,8 +37,6 @@ class Main extends PluginBase implements Listener{
 }
 }
     }
-  }
-}
   if($this->getConfig()->get("Diamond") == true){
   if($block instanceof DiamondOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
@@ -66,3 +64,5 @@ class Main extends PluginBase implements Listener{
     }
   }
   }
+  }
+}
