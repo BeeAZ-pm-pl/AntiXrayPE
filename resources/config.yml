@@ -1,5 +1,17 @@
-Coal: false
-Redstone: false
+#Do not edit version
+
+version: 1
+
+#Check Ore
+Coal: true
+Redstone: true
 Diamond: true
-Lapis: false
+Lapis: true
 Emerald: true
+Iron: true
+Gold: true
+
+#message
+
+on: "You have enabled xray check mode"
+off: "You have turned off xray check mode"

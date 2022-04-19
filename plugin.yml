@@ -4,6 +4,11 @@ version: 0.0.2
 main: BeeAZZ\AntiXrayPE\Main
 author: BeeAZ
 
+commands:
+ antixray:
+  description: Turn anti-xray mode on and off
+  aliases: ["ax", "antix"]
+  permission: antixraype.check
 permissions:
  antixraype.check:
   default: op
