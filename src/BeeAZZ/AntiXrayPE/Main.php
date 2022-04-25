@@ -24,7 +24,7 @@ class Main extends PluginBase implements Listener {
 	private const VERSION = 1;
 
 	private function checkVersion(): void {
-		if ($this->cfg->get("version") !== self::VERSION or !$this->cfg->exists("version")) {
+		if ($this->cfg->get("version", false) !== self::VERSION) {
 			$this->getLogger()->notice("§c§lPlease Use config.yml Latest");
 			$this->getServer()->getPluginManager()->disablePlugin($this);
 		}
