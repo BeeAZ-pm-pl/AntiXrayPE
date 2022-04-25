@@ -47,25 +47,21 @@ class Main extends PluginBase implements Listener {
 	}
 
 	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool {
-		switch ($cmd->getName()) {
-			case "antixray":
-				if (!$sender instanceof Player) {
-					$sender->sendMessage("Please Use Command In Game");
-					return true;
-				}
-				if ($sender->hasPermission("antixraype.check")) {
-					if ($this->anti[$sender->getName()]) {
-						$this->anti[$sender->getName()] = false;
-						$sender->sendMessage($this->cfg->get("off"));
-					} else {
-						$this->anti[$sender->getName()] = true;
-						$sender->sendMessage($this->cfg->get("on"));
-					}
-					break;
-				}
+		if ($cmd->getName() === "antixray") {
+			if (!($sender instanceof Player)) {
+				$sender->sendMessage("§c§lYou can't use this command in the terminal");
 				return true;
+			}
+			if ($this->anti[$sender->getName()]) {
+				$this->anti[$sender->getName()] = false;
+				$sender->sendMessage($this->cfg->get("off"));
+			} else {
+				$this->anti[$sender->getName()] = true;
+				$sender->sendMessage($this->cfg->get("on"));
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	private function onWarning($staff, $player, $event): void {
