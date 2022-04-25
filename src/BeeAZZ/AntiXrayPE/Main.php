@@ -19,9 +19,9 @@ class Main extends PluginBase implements Listener {
 
 	protected Config $cfg;
 
-	protected $anti = [];
+	private array $anti = [];
 
-	protected const VERSION = 1;
+	private const VERSION = 1;
 
 	private function checkVersion(): void {
 		if ($this->cfg->get("version") !== self::VERSION or !$this->cfg->exists("version")) {
@@ -81,33 +81,27 @@ class Main extends PluginBase implements Listener {
 			if ($block->isSameType(VanillaBlocks::COAL_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		}
-		if ($this->cfg->get("Redstone")) {
+		} elseif ($this->cfg->get("Redstone")) {
 			if ($block->isSameType(VanillaBlocks::REDSTONE_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		}
-		if ($this->cfg->get("Diamond")) {
+		} elseif ($this->cfg->get("Diamond")) {
 			if ($block->isSameType(VanillaBlocks::DIAMOND_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		}
-		if ($this->cfg->get("Lapis")) {
+		} elseif ($this->cfg->get("Lapis")) {
 			if ($block->isSameType(VanillaBlocks::LAPIS_LAZULI_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		}
-		if ($this->cfg->get("Iron")) {
+		} elseif ($this->cfg->get("Iron")) {
 			if ($block->isSameType(VanillaBlocks::IRON_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		}
-		if ($this->cfg->get("Gold")) {
+		} elseif ($this->cfg->get("Gold")) {
 			if ($block->isSameType(VanillaBlocks::GOLD_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		}
-		if ($this->cfg->get("Emerald")) {
+		} elseif ($this->cfg->get("Emerald")) {
 			if ($block->isSameType(VanillaBlocks::EMERALD_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
