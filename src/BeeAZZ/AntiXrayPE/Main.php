@@ -11,20 +11,17 @@ use pocketmine\block\Block;
 use pocketmine\block\{CoalOre, RedstoneOre, DiamondOre, LapisOre, EmeraldOre};
 use pocketmine\command\{Command, CommandSender};
 use pocketmine\block\BlockLegacyIds as Ids;
-use pocketmine\entity\effect\{EffectInstance, EffectManager, VanillaEffects};
-use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\utils\Config;
+use pocketmine\event\player\{PlayerJoinEvent, PlayerQuitEvent};
 
 class Main extends PluginBase implements Listener{
   
-  protected $anti;
+  protected $anti = [];
   
   protected const VERSION = 1;
   
   public function onEnable(): void{
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->saveDefaultConfig();
-    $this->anti = new Config($this->getDataFolder()."anti.yml",Config::YAML);
    if($this->getConfig()->get("version") !== self::VERSION or !$this->getConfig()->exists("version")){
    $this->getLogger()->notice("§c§lPlease Use config.yml Latest");
    $this->getServer()->getPluginManager()->disablePlugin($this);
@@ -33,10 +30,11 @@ class Main extends PluginBase implements Listener{
   
   public function onJoin(PlayerJoinEvent $ev){
   $name = $ev->getPlayer()->getName();
-  if(!$this->anti->exists($name)){
-   $this->anti->set($name, false);
-   $this->anti->save();
+  $this->anti[$name] = false;
   }
+  
+  public function onQuit(PlayerQuitEvent $ev){
+  unset($this->anti[$ev->getPlayer()->getName()]);
   }
   
   public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool{
@@ -47,13 +45,11 @@ class Main extends PluginBase implements Listener{
      return true;
      }
      if($sender->hasPermission("antixraype.check")){
-     if($this->anti->get($sender->getName()) == true){
-     $sender->getEffects()->remove(VanillaEffects::INVISIBILITY());
-     $this->anti->set($sender->getName(), false);
+     if($this->anti[$sender->getName()] == true){
+     $this->anti[$sender->getName()] = false;
      $sender->sendMessage($this->getConfig()->get("off"));
      }else{
-     $sender->getEffects()->add(new EffectInstance(VanillaEffects:: INVISIBILITY(), 10000000, 1, true));
-     $this->anti->set($sender->getName(), true);
+     $this->anti[$sender->getName()] = true;
      $sender->sendMessage($this->getConfig()->get("on"));
      }
      break;
@@ -70,7 +66,7 @@ return true;
   if($block instanceof CoalOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
-      if($this->anti->get($staff->getName()) == true){
+      if($this->anti[$staff->getName()] == true){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
      }
   }
@@ -81,7 +77,7 @@ return true;
   if($block instanceof RedstoneOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
-       if($this->anti->get($staff->getName()) == true){
+       if($this->anti[$staff->getName()] == true){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
   }
 }
@@ -92,7 +88,7 @@ return true;
   if($block instanceof DiamondOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
-       if($this->anti->get($staff->getName()) == true){
+       if($this->anti[$staff->getName()] == true){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
      }
      }
@@ -103,7 +99,7 @@ return true;
   if($block instanceof LapisOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
-      if($this->anti->get($staff->getName()) == true){
+      if($this->anti[$staff->getName()] == true){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
      }
     }
@@ -114,7 +110,7 @@ return true;
   if($block->getId() == Ids::IRON_ORE){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
-      if($this->anti->get($staff->getName()) == true){
+      if($this->anti[$staff->getName()] == true){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
      }
     }
@@ -125,7 +121,7 @@ return true;
   if($block->getId() == Ids::GOLD_ORE){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
-      if($this->anti->get($staff->getName()) == true){
+      if($this->anti[$staff->getName()] == true){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
      }
     }
@@ -136,7 +132,7 @@ return true;
   if($block instanceof EmeraldOre){
     foreach($this->getServer()->getOnlinePlayers() as $staff){
      if($staff->hasPermission("antixraype.check")){
-      if($this->anti->get($staff->getName()) == true){
+      if($this->anti[$staff->getName()] == true){
       $staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c".$player->getName(). " §abreak §c".$event->getBlock());
      }
     }
