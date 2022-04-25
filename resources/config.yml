@@ -1,8 +1,8 @@
-#Do not edit version
-
+---
+# Do not edit version
 version: 1
 
-#Check Ore
+# Check Ore
 Coal: true
 Redstone: true
 Diamond: true
@@ -11,7 +11,7 @@ Emerald: true
 Iron: true
 Gold: true
 
-#message
-
+# Message
 on: "You have enabled xray check mode"
 off: "You have turned off xray check mode"
+...
