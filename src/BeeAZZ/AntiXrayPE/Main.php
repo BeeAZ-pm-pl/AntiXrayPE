@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BeeAZZ\AntiXrayPE;
 
+use pocketmine\utils\Config;
 use pocketmine\player\Player;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
@@ -19,21 +20,26 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 
-
 class Main extends PluginBase implements Listener {
+
+	protected Config $cfg;
 
 	protected $anti = [];
 
 	protected const VERSION = 1;
 
-	public function onEnable(): void {
-		$this->getServer()->getPluginManager()->registerEvents($this, $this);
-		$this->saveDefaultConfig();
-		$this->cfg = $this->cfg;
+	private function checkVersion(): void {
 		if ($this->cfg->get("version") !== self::VERSION or !$this->cfg->exists("version")) {
 			$this->getLogger()->notice("§c§lPlease Use config.yml Latest");
 			$this->getServer()->getPluginManager()->disablePlugin($this);
 		}
+	}
+
+	public function onEnable(): void {
+		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+		$this->saveDefaultConfig();
+		$this->cfg = $this->getConfig();
+		$this->checkVersion();
 	}
 
 	public function onJoin(PlayerJoinEvent $event) {
