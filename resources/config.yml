@@ -3,13 +3,13 @@
 version: 1
 
 # Check Ore
-Coal: true
-Redstone: true
-Diamond: true
-Lapis: true
-Emerald: true
-Iron: true
-Gold: true
+CoalOre: true
+RedstoneOre: true
+DiamondOre: true
+LapisLazuliOre: true
+EmeraldOre: true
+IronOre: true
+GoldOre: true
 
 # Message
 on: "You have enabled xray check mode"
