@@ -52,7 +52,7 @@ class Main extends PluginBase implements Listener {
 					return true;
 				}
 				if ($sender->hasPermission("antixraype.check")) {
-					if ($this->anti[$sender->getName()] == true) {
+					if ($this->anti[$sender->getName()]) {
 						$this->anti[$sender->getName()] = false;
 						$sender->sendMessage($this->getConfig()->get("off"));
 					} else {
@@ -69,77 +69,77 @@ class Main extends PluginBase implements Listener {
 	public function onBreak(BlockBreakEvent $event) {
 		$block = $event->getBlock();
 		$player = $event->getPlayer();
-		if ($this->getConfig()->get("Coal") == true) {
+		if ($this->getConfig()->get("Coal")) {
 			if ($block instanceof CoalOre) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
-						if ($this->anti[$staff->getName()] == true) {
+						if ($this->anti[$staff->getName()]) {
 							$staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c" . $player->getName() . " §abreak §c" . $event->getBlock());
 						}
 					}
 				}
 			}
 		}
-		if ($this->getConfig()->get("Redstone") == true) {
+		if ($this->getConfig()->get("Redstone")) {
 			if ($block instanceof RedstoneOre) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
-						if ($this->anti[$staff->getName()] == true) {
+						if ($this->anti[$staff->getName()]) {
 							$staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c" . $player->getName() . " §abreak §c" . $event->getBlock());
 						}
 					}
 				}
 			}
 		}
-		if ($this->getConfig()->get("Diamond") == true) {
+		if ($this->getConfig()->get("Diamond")) {
 			if ($block instanceof DiamondOre) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
-						if ($this->anti[$staff->getName()] == true) {
+						if ($this->anti[$staff->getName()]) {
 							$staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c" . $player->getName() . " §abreak §c" . $event->getBlock());
 						}
 					}
 				}
 			}
 		}
-		if ($this->getConfig()->get("Lapis") == true) {
+		if ($this->getConfig()->get("Lapis")) {
 			if ($block instanceof LapisOre) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
-						if ($this->anti[$staff->getName()] == true) {
+						if ($this->anti[$staff->getName()]) {
 							$staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c" . $player->getName() . " §abreak §c" . $event->getBlock());
 						}
 					}
 				}
 			}
 		}
-		if ($this->getConfig()->get("Iron") == true) {
+		if ($this->getConfig()->get("Iron")) {
 			if ($block->getId() == BlockLegacyIds::IRON_ORE) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
-						if ($this->anti[$staff->getName()] == true) {
+						if ($this->anti[$staff->getName()]) {
 							$staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c" . $player->getName() . " §abreak §c" . $event->getBlock());
 						}
 					}
 				}
 			}
 		}
-		if ($this->getConfig()->get("Gold") == true) {
+		if ($this->getConfig()->get("Gold")) {
 			if ($block->getId() == BlockLegacyIds::GOLD_ORE) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
-						if ($this->anti[$staff->getName()] == true) {
+						if ($this->anti[$staff->getName()]) {
 							$staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c" . $player->getName() . " §abreak §c" . $event->getBlock());
 						}
 					}
 				}
 			}
 		}
-		if ($this->getConfig()->get("Emerald") == true) {
+		if ($this->getConfig()->get("Emerald")) {
 			if ($block instanceof EmeraldOre) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
-						if ($this->anti[$staff->getName()] == true) {
+						if ($this->anti[$staff->getName()]) {
 							$staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c" . $player->getName() . " §abreak §c" . $event->getBlock());
 						}
 					}
