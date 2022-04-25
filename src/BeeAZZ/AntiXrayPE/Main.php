@@ -8,14 +8,9 @@ use pocketmine\utils\Config;
 use pocketmine\player\Player;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
-use pocketmine\block\CoalOre;
-use pocketmine\block\RedstoneOre;
-use pocketmine\block\DiamondOre;
-use pocketmine\block\LapisOre;
-use pocketmine\block\EmeraldOre;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\block\BlockLegacyIds;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
@@ -87,37 +82,37 @@ class Main extends PluginBase implements Listener {
 		$block = $event->getBlock();
 		$player = $event->getPlayer();
 		if ($this->cfg->get("Coal")) {
-			if ($block instanceof CoalOre) {
+			if ($block->isSameType(VanillaBlocks::COAL_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
 		}
 		if ($this->cfg->get("Redstone")) {
-			if ($block instanceof RedstoneOre) {
+			if ($block->isSameType(VanillaBlocks::REDSTONE_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
 		}
 		if ($this->cfg->get("Diamond")) {
-			if ($block instanceof DiamondOre) {
+			if ($block->isSameType(VanillaBlocks::DIAMOND_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
 		}
 		if ($this->cfg->get("Lapis")) {
-			if ($block instanceof LapisOre) {
+			if ($block->isSameType(VanillaBlocks::LAPIS_LAZULI_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
 		}
 		if ($this->cfg->get("Iron")) {
-			if ($block->getId() == BlockLegacyIds::IRON_ORE) {
+			if ($block->isSameType(VanillaBlocks::IRON_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
 		}
 		if ($this->cfg->get("Gold")) {
-			if ($block->getId() == BlockLegacyIds::GOLD_ORE) {
+			if ($block->isSameType(VanillaBlocks::GOLD_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
 		}
 		if ($this->cfg->get("Emerald")) {
-			if ($block instanceof EmeraldOre) {
+			if ($block->isSameType(VanillaBlocks::EMERALD_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
 		}
