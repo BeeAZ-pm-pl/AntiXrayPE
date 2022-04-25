@@ -29,7 +29,8 @@ class Main extends PluginBase implements Listener {
 	public function onEnable(): void {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->saveDefaultConfig();
-		if ($this->getConfig()->get("version") !== self::VERSION or !$this->getConfig()->exists("version")) {
+		$this->cfg = $this->cfg;
+		if ($this->cfg->get("version") !== self::VERSION or !$this->cfg->exists("version")) {
 			$this->getLogger()->notice("§c§lPlease Use config.yml Latest");
 			$this->getServer()->getPluginManager()->disablePlugin($this);
 		}
@@ -54,10 +55,10 @@ class Main extends PluginBase implements Listener {
 				if ($sender->hasPermission("antixraype.check")) {
 					if ($this->anti[$sender->getName()]) {
 						$this->anti[$sender->getName()] = false;
-						$sender->sendMessage($this->getConfig()->get("off"));
+						$sender->sendMessage($this->cfg->get("off"));
 					} else {
 						$this->anti[$sender->getName()] = true;
-						$sender->sendMessage($this->getConfig()->get("on"));
+						$sender->sendMessage($this->cfg->get("on"));
 					}
 					break;
 				}
@@ -69,7 +70,7 @@ class Main extends PluginBase implements Listener {
 	public function onBreak(BlockBreakEvent $event) {
 		$block = $event->getBlock();
 		$player = $event->getPlayer();
-		if ($this->getConfig()->get("Coal")) {
+		if ($this->cfg->get("Coal")) {
 			if ($block instanceof CoalOre) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
@@ -80,7 +81,7 @@ class Main extends PluginBase implements Listener {
 				}
 			}
 		}
-		if ($this->getConfig()->get("Redstone")) {
+		if ($this->cfg->get("Redstone")) {
 			if ($block instanceof RedstoneOre) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
@@ -91,7 +92,7 @@ class Main extends PluginBase implements Listener {
 				}
 			}
 		}
-		if ($this->getConfig()->get("Diamond")) {
+		if ($this->cfg->get("Diamond")) {
 			if ($block instanceof DiamondOre) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
@@ -102,7 +103,7 @@ class Main extends PluginBase implements Listener {
 				}
 			}
 		}
-		if ($this->getConfig()->get("Lapis")) {
+		if ($this->cfg->get("Lapis")) {
 			if ($block instanceof LapisOre) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
@@ -113,7 +114,7 @@ class Main extends PluginBase implements Listener {
 				}
 			}
 		}
-		if ($this->getConfig()->get("Iron")) {
+		if ($this->cfg->get("Iron")) {
 			if ($block->getId() == BlockLegacyIds::IRON_ORE) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
@@ -124,7 +125,7 @@ class Main extends PluginBase implements Listener {
 				}
 			}
 		}
-		if ($this->getConfig()->get("Gold")) {
+		if ($this->cfg->get("Gold")) {
 			if ($block->getId() == BlockLegacyIds::GOLD_ORE) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
@@ -135,7 +136,7 @@ class Main extends PluginBase implements Listener {
 				}
 			}
 		}
-		if ($this->getConfig()->get("Emerald")) {
+		if ($this->cfg->get("Emerald")) {
 			if ($block instanceof EmeraldOre) {
 				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 					if ($staff->hasPermission("antixraype.check")) {
