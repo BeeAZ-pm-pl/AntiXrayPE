@@ -80,6 +80,7 @@ class Main extends PluginBase implements Listener {
 				}
 			}
 		}
+		return;
 	}
 
 	public function onBreak(BlockBreakEvent $event) {
@@ -89,27 +90,33 @@ class Main extends PluginBase implements Listener {
 			if ($block->isSameType(VanillaBlocks::COAL_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("RedstoneOre", true)) {
+		}
+		if ($this->cfg->get("RedstoneOre", true)) {
 			if ($block->isSameType(VanillaBlocks::REDSTONE_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("DiamondOre", true)) {
+		}
+		if ($this->cfg->get("DiamondOre", true)) {
 			if ($block->isSameType(VanillaBlocks::DIAMOND_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("LapisLazuliOre", true)) {
+		}
+		if ($this->cfg->get("LapisLazuliOre", true)) {
 			if ($block->isSameType(VanillaBlocks::LAPIS_LAZULI_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("IronOre", true)) {
+		}
+		if ($this->cfg->get("IronOre", true)) {
 			if ($block->isSameType(VanillaBlocks::IRON_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("GoldOre", true)) {
+		}
+		if ($this->cfg->get("GoldOre", true)) {
 			if ($block->isSameType(VanillaBlocks::GOLD_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("EmeraldOre", true)) {
+		}
+		if ($this->cfg->get("EmeraldOre", true)) {
 			if ($block->isSameType(VanillaBlocks::EMERALD_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
