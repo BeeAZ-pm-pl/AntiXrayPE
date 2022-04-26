@@ -34,7 +34,7 @@ class Main extends PluginBase implements Listener {
 		}
 	}
 
-	public function onEnable(): void {
+	protected function onEnable(): void {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->saveDefaultConfig();
 		$this->cfg = $this->getConfig();
