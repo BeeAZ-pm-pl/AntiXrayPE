@@ -1,5 +1,5 @@
 ---
-# Do not edit version
+#Please don't edit the version
 version: 1
 
 # Check Ore
@@ -12,6 +12,8 @@ IronOre: true
 GoldOre: true
 
 # Message
-on: "You have enabled xray check mode"
-off: "You have turned off xray check mode"
+prefix: "&l&e[AntiXrayPE]"
+onMsg: "Xray check mode is now on!"
+offMsg: "Xray check mode is now off!"
+warningMsg: "{prefix} ➳ &aPlayer &c{name} &abreak &c{block}"
 ...

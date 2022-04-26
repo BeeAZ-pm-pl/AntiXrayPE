@@ -7,7 +7,7 @@ author: BeeAZ
 
 commands:
   antixray:
-    description: Turn anti-xray mode on and off
+    description: "Turn anti-xray mode on/off"
     aliases: ["ax", "antix"]
     permission: antixraype.check
 permissions:

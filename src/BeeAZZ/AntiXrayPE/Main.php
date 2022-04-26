@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace BeeAZZ\AntiXrayPE;
 
-use pocketmine\utils\Config;
 use pocketmine\player\Player;
-use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\block\VanillaBlocks;
+use pocketmine\utils\Config;
+use pocketmine\utils\TextFormat;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\event\Listener;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
@@ -25,7 +26,7 @@ class Main extends PluginBase implements Listener {
 
 	private function checkVersion(): void {
 		if ($this->cfg->get("version", false) !== self::VERSION) {
-			$this->getLogger()->notice("§c§lPlease Use config.yml Latest");
+			$this->getLogger()->notice(TextFormat::RED . "Please use the latest configuration!");
 			$this->getServer()->getPluginManager()->disablePlugin($this);
 		}
 	}
@@ -49,15 +50,15 @@ class Main extends PluginBase implements Listener {
 	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool {
 		if ($cmd->getName() === "antixray") {
 			if (!($sender instanceof Player)) {
-				$sender->sendMessage("§c§lYou can't use this command in the terminal");
+				$sender->sendMessage(TextFormat::RED . "You can't use this command in the terminal");
 				return true;
 			}
 			if ($this->anti[$sender->getName()]) {
 				$this->anti[$sender->getName()] = false;
-				$sender->sendMessage($this->cfg->get("off"));
+				$sender->sendMessage(TextFormat::colorize($this->cfg->get("offMsg")));
 			} else {
 				$this->anti[$sender->getName()] = true;
-				$sender->sendMessage($this->cfg->get("on"));
+				$sender->sendMessage(TextFormat::colorize($this->cfg->get("onMsg")));
 			}
 			return true;
 		}
@@ -68,7 +69,11 @@ class Main extends PluginBase implements Listener {
 		foreach ($this->getServer()->getOnlinePlayers() as $staff) {
 			if ($staff->hasPermission("antixraype.check")) {
 				if ($this->anti[$staff->getName()]) {
-					$staff->sendMessage("§e§l[AntiXrayPE] ➳ §aPlayer §c" . $player->getName() . " §abreak §c" . $event->getBlock());
+					$staff->sendMessage(TextFormat::colorize(str_replace(
+						["{prefix}", "{name}", "{block}"],
+						[$this->cfg->get("prefix"), $player->getName(), $event->getBlock()],
+						$this->cfg->get("warningMsg")
+					)));
 				}
 			}
 		}
