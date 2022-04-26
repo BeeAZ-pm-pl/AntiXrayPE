@@ -55,10 +55,10 @@ class Main extends PluginBase implements Listener {
 			}
 			if ($this->anti[$sender->getName()]) {
 				$this->anti[$sender->getName()] = false;
-				$sender->sendMessage(TextFormat::colorize($this->cfg->get("offMsg")));
+				$sender->sendMessage(TextFormat::colorize($this->cfg->get("offMsg", "Xray check mode is now on!")));
 			} else {
 				$this->anti[$sender->getName()] = true;
-				$sender->sendMessage(TextFormat::colorize($this->cfg->get("onMsg")));
+				$sender->sendMessage(TextFormat::colorize($this->cfg->get("onMsg", "Xray check mode is now off!")));
 			}
 			return true;
 		}
@@ -71,8 +71,8 @@ class Main extends PluginBase implements Listener {
 				if ($this->anti[$staff->getName()]) {
 					$staff->sendMessage(TextFormat::colorize(str_replace(
 						["{prefix}", "{name}", "{block}"],
-						[$this->cfg->get("prefix"), $player->getName(), $event->getBlock()],
-						$this->cfg->get("warningMsg")
+						[$this->cfg->get("prefix", "&l&e[AntiXrayPE]"), $player->getName(), $event->getBlock()],
+						$this->cfg->get("warningMsg", "{prefix} ➳ &aPlayer &c{name} &abreak &c{block}")
 					)));
 				}
 			}
@@ -82,31 +82,31 @@ class Main extends PluginBase implements Listener {
 	public function onBreak(BlockBreakEvent $event) {
 		$block = $event->getBlock();
 		$player = $event->getPlayer();
-		if ($this->cfg->get("CoalOre")) {
+		if ($this->cfg->get("CoalOre", true)) {
 			if ($block->isSameType(VanillaBlocks::COAL_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("RedstoneOre")) {
+		} elseif ($this->cfg->get("RedstoneOre", true)) {
 			if ($block->isSameType(VanillaBlocks::REDSTONE_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("DiamondOre")) {
+		} elseif ($this->cfg->get("DiamondOre", true)) {
 			if ($block->isSameType(VanillaBlocks::DIAMOND_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("LapisLazuliOre")) {
+		} elseif ($this->cfg->get("LapisLazuliOre", true)) {
 			if ($block->isSameType(VanillaBlocks::LAPIS_LAZULI_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("IronOre")) {
+		} elseif ($this->cfg->get("IronOre", true)) {
 			if ($block->isSameType(VanillaBlocks::IRON_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("GoldOre")) {
+		} elseif ($this->cfg->get("GoldOre", true)) {
 			if ($block->isSameType(VanillaBlocks::GOLD_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
-		} elseif ($this->cfg->get("EmeraldOre")) {
+		} elseif ($this->cfg->get("EmeraldOre", true)) {
 			if ($block->isSameType(VanillaBlocks::EMERALD_ORE())) {
 				$this->onWarning($player, $player, $event);
 			}
