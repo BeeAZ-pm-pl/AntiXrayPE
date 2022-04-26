@@ -1,17 +1,19 @@
-#Do not edit version
-
+---
+#Please don't edit the version
 version: 1
 
-#Check Ore
-Coal: true
-Redstone: true
-Diamond: true
-Lapis: true
-Emerald: true
-Iron: true
-Gold: true
+# Check Ore
+CoalOre: true
+RedstoneOre: true
+DiamondOre: true
+LapisLazuliOre: true
+EmeraldOre: true
+IronOre: true
+GoldOre: true
 
-#message
-
-on: "You have enabled xray check mode"
-off: "You have turned off xray check mode"
+# Message
+prefix: "&l&e[AntiXrayPE]"
+onMsg: "Xray check mode is now on!"
+offMsg: "Xray check mode is now off!"
+warningMsg: "{prefix} ➳ &aPlayer &c{name} &abreak &c{block}"
+...
