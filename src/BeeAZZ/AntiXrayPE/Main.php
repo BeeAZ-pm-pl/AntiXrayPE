@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BeeAZZ\AntiXrayPE;
 
+use pocketmine\block\Block;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\block\VanillaBlocks;
@@ -56,70 +57,44 @@ class Main extends PluginBase implements Listener {
 				$sender->sendMessage(TextFormat::RED . "You can't use this command in the terminal");
 				return true;
 			}
-			if ($this->anti[$sender->getName()]) {
-				$this->anti[$sender->getName()] = false;
-				$sender->sendMessage(TextFormat::colorize($this->cfg->get("offMsg", "Xray check mode is now on!")));
-			} else {
-				$this->anti[$sender->getName()] = true;
-				$sender->sendMessage(TextFormat::colorize($this->cfg->get("onMsg", "Xray check mode is now off!")));
-			}
+			$mode = $this->anti[$sender->getName()] ? "off" : "on";
+			$this->anti[$sender->getName()] = !$this->anti[$sender->getName()];
+			$sender->sendMessage(TextFormat::colorize($this->cfg->get("{$mode}Msg", "Xray check mode is now {$mode}!")));
 			return true;
 		}
 		return false;
 	}
 
-	private function onWarning($staff, $player, $event): void {
-		foreach ($this->getServer()->getOnlinePlayers() as $staff) {
-			if ($staff->hasPermission("antixraype.check")) {
-				if ($this->anti[$staff->getName()]) {
-					$staff->sendMessage(TextFormat::colorize(str_replace(
-						["{prefix}", "{name}", "{block}"],
-						[$this->cfg->get("prefix", "&l&e[AntiXrayPE]"), $player->getName(), $event->getBlock()],
-						$this->cfg->get("warningMsg", "{prefix} ➳ &aPlayer &c{name} &abreak &c{block}")
-					)));
+	private function onWarning(Player $player, Block $block): void {
+		$ores = [
+			"CoalOre" => VanillaBlocks::COAL_ORE(),
+			"RedstoneOre" => VanillaBlocks::REDSTONE_ORE(),
+			"DiamondOre" => VanillaBlocks::DIAMOND_ORE(),
+			"LapisLazuliOre" => VanillaBlocks::LAPIS_LAZULI_ORE(),
+			"IronOre" => VanillaBlocks::IRON_ORE(),
+			"GoldOre" => VanillaBlocks::GOLD_ORE(),
+			"EmeraldOre" => VanillaBlocks::EMERALD_ORE(),
+		];
+		foreach ($ores as $name => $ore) {
+			if ($this->cfg->get($name, true) && $block->isSameState($ore)) {
+				foreach ($this->getServer()->getOnlinePlayers() as $staff) {
+					if ($staff->hasPermission("antixraype.check")) {
+						if ($this->anti[$staff->getName()]) {
+							$staff->sendMessage(TextFormat::colorize(str_replace(
+								["{prefix}", "{name}", "{block}"],
+								[$this->cfg->get("prefix", "&l&e[AntiXrayPE]"), $player->getName(), $block],
+								$this->cfg->get("warningMsg", "{prefix} ➳ &aPlayer &c{name} &abreak &c{block}")
+							)));
+						}
+					}
 				}
 			}
 		}
-		return;
 	}
 
 	public function onBreak(BlockBreakEvent $event) {
-		$block = $event->getBlock();
 		$player = $event->getPlayer();
-		if ($this->cfg->get("CoalOre", true)) {
-			if ($block->isSameType(VanillaBlocks::COAL_ORE())) {
-				$this->onWarning($player, $player, $event);
-			}
-		}
-		if ($this->cfg->get("RedstoneOre", true)) {
-			if ($block->isSameType(VanillaBlocks::REDSTONE_ORE())) {
-				$this->onWarning($player, $player, $event);
-			}
-		}
-		if ($this->cfg->get("DiamondOre", true)) {
-			if ($block->isSameType(VanillaBlocks::DIAMOND_ORE())) {
-				$this->onWarning($player, $player, $event);
-			}
-		}
-		if ($this->cfg->get("LapisLazuliOre", true)) {
-			if ($block->isSameType(VanillaBlocks::LAPIS_LAZULI_ORE())) {
-				$this->onWarning($player, $player, $event);
-			}
-		}
-		if ($this->cfg->get("IronOre", true)) {
-			if ($block->isSameType(VanillaBlocks::IRON_ORE())) {
-				$this->onWarning($player, $player, $event);
-			}
-		}
-		if ($this->cfg->get("GoldOre", true)) {
-			if ($block->isSameType(VanillaBlocks::GOLD_ORE())) {
-				$this->onWarning($player, $player, $event);
-			}
-		}
-		if ($this->cfg->get("EmeraldOre", true)) {
-			if ($block->isSameType(VanillaBlocks::EMERALD_ORE())) {
-				$this->onWarning($player, $player, $event);
-			}
-		}
+		$block = $event->getBlock();
+		$this->onWarning($player, $block);
 	}
 }
